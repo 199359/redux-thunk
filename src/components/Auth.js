@@ -1,31 +1,49 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import {onEmailChangeAction,
+import {
+    onEmailChangeAction,
     onPasswordChangeAction,
-    onLoginClickAction} 
+    onLoginClickAction
+}
     from '../state/auth'
+import LoginByEmailAndPassword from './LoginByEmailAndPassword'
+import firebase from 'firebase'
+
+const signOut = () => {
+    firebase.auth().signOut().then(function() {
+        console.log('Signed Out');
+      }, function(error) {
+        console.error('Sign Out Error', error);
+      });
+}
+
 const Auth = props => (
-    <div>
-        {
-            <div>
-                <div>
-                    <input type='email' onChange={props._onEmailChange}></input>
-                </div>
-                <div>
-                    <input type='password' onChange={props._onPasswordChange}></input>
-                </div>
-                <div>
-                    <button onClick={props._onLogInClick}>
-                        LOGIN
-                    </button>
-                </div>
-            </div>
-        }
-    </div>
+    props._user ?
+        <div>
+            <button
+            onClick={signOut}
+            >
+            LOG OUT
+            </button>
+            {props.children}
+        </div>
+
+        :
+        <div>
+            <LoginByEmailAndPassword
+                _emailValue={props._emailValue}
+                _onEmailChange={props._onEmailChange}
+                _passwordValue={props._passwordValue}
+                _onPasswordChange={props._onPasswordChange}
+                _onLogInClick={props._onLogInClick}
+            />
+        </div>
 )
 
 const mapStateToProps = state => ({
-
+    _user: state.auth.user,
+    _emailValue: state.auth.email,
+    _passwordValue: state.auth.password
 })
 
 const mapDispatchToProps = dispatch => ({

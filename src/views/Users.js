@@ -4,17 +4,20 @@ import { connect } from 'react-redux'
 const Users = props => (
     <div>
         {
-            props._isUsersAreLoading === true ?
+            props._isUsersAreLoading ?
                 <p>Ładowanie</p>
                 :
-                props._users.results.map((el) => (
-                    <div>
+                props._users ?
+                    props._users.results.map((el) => (
                         <div>
-                            <img src={el.picture.thumbnail}></img>
+                            <div>
+                                <img src={el.picture.thumbnail}></img>
+                            </div>
+                            {el.name.first} {el.name.last}
                         </div>
-                        {el.name.first} {el.name.last}
-                    </div>
-                ))
+                    ))
+                    :
+                    'No users'
         }
     </div>
 )
