@@ -1,6 +1,6 @@
-const SET_USERS = './fetchUsers/SET_USERS'
-const USERS_STARTED_LOADING = './fetchUsers/USERS_STARTED_LOADING'
-const USERS_STOPPED_LOADING = './fetchUsers/USERS_STOPPED_LOADING'
+const SET_USERS = 'fetchUsers/SET_USERS'
+const USERS_STARTED_LOADING = 'fetchUsers/USERS_STARTED_LOADING'
+const USERS_STOPPED_LOADING = 'fetchUsers/USERS_STOPPED_LOADING'
 
 export const usersStartedLoading = () => ({type: USERS_STARTED_LOADING})
 export const usersStoppedLoading = () => ({type: USERS_STOPPED_LOADING})
